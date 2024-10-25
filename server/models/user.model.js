@@ -25,6 +25,10 @@ const UserSchema = new Schema(
       required: [true, "Password is required."],
       minlength: [8, "Password must be at least 8 characters long."],
     },
+
+
+    posts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Post' }]
+
   },
   { timestamps: true }
 );
