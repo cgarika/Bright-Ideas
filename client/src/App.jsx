@@ -2,7 +2,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import DisplayAll from './views/DisplayAll'
-import DisplayOne from './views/DisplayOne'
+import DisplayUser from './views/DisplayUser'
 import Login from './views/Login'
 import ViewOnePost from './views/ViewOnePost'
 import Navbar from './components/Navbar'
@@ -16,7 +16,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/display" element={<DisplayAll />} />
-        <Route path="/display/:id" element={<DisplayOne />} />
+        <Route path="/display/:id" element={<DisplayUser />} />
         <Route path="/viewonepost/:id" element={<ViewOnePost />} />
       </Routes>
     </div>
