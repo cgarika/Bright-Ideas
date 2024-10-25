@@ -4,6 +4,7 @@ import axios from 'axios';
 import Button from 'react-bootstrap/Button';
 
 const Login = (props) => {
+  const navigate = useNavigate();
   const {errors, errorUpdater} = props;
   const [loginData, setLoginData] = useState(
     {
@@ -35,6 +36,17 @@ const Login = (props) => {
       password: ""
     });
   
+    const handleLogin = async (e) => {
+      e.preventDefault();
+      try {
+        const response = await axios.post('http://localhost:8000/api/users/login', loginData, {withCredentials: true});
+        if (response.data.msg === "Login successful!") {
+          navigate('/bright_ideas');
+        }
+      } catch (err) {
+        setLoginErrors(err.response.data.errors || {message: "Login failed"});
+      }
+    };    
 
     const firstNameHandler = (e) => {
       const value = e.target.value;
@@ -161,29 +173,29 @@ const Login = (props) => {
           </div>
         </div>
         <div className="form-wrapper">
-          <div className="form-wrapper__top">
-            <h2>Login</h2>
-          </div>
-          <div className="form-body">
-            <form action="">
-            <div className="input-wrapper">
-              <label htmlFor="email">Email:</label>
-              <input type="email" name="email" id="email" value={registerData.email} onChange={emailHandler} />
-              {loginErrors.email && <p style={{color:"red"}} >{loginErrors.email}</p>}
-              {errors.email && <p style={{color:"red"}} >{errors.email.message}</p>}
+            <div className="form-wrapper__top">
+              <h2>Login</h2>
             </div>
-            <div className="input-wrapper">
-              <label htmlFor="password">Password:</label>
-              <input type="password" name="password" id="password" value={registerData.password} onChange={passwordHandler} />
-              {loginErrors.password && <p style={{color:"red"}} >{loginErrors.password}</p>}
-              {errors.password && <p style={{color:"red"}} >{errors.password.message}</p>}
+            <div className="form-body">
+              <form action="">
+                <div className="input-wrapper">
+                  <label htmlFor="email">Email:</label>
+                  <input type="email" name="email" id="email" value={loginData.email} onChange={(e) => emailHandler(e, true)} />
+                  {loginErrors.email && <p style={{color:"red"}} >{loginErrors.email}</p>}
+                  {errors.email && <p style={{color:"red"}} >{errors.email.message}</p>}
+                </div>
+                <div className="input-wrapper">
+                  <label htmlFor="password">Password:</label>
+                  <input type="password" name="password" id="password" value={loginData.password} onChange={(e) => passwordHandler(e, true)} />
+                  {loginErrors.password && <p style={{color:"red"}} >{loginErrors.password}</p>}
+                  {errors.password && <p style={{color:"red"}} >{errors.password.message}</p>}
+                </div>
+                <div className="form-button__wrapper">
+                  <Button type='submit' variant='primary' onClick={handleLogin}>Login</Button>
+                </div>
+              </form>
             </div>
-              <div className="form-button__wrapper">
-                <Button type='submit' variant='primary'>Register</Button>
-              </div>
-            </form>
           </div>
-        </div>
       </div>
     </div>
   )
