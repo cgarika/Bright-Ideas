@@ -4,7 +4,6 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import DisplayAll from './views/DisplayAll'
 import DisplayUser from './views/DisplayUser'
 import Login from './views/Login'
-import DisplayUser from './views/DisplayUser'
 import Navbar from './components/Navbar'
 import './App.css'
 
