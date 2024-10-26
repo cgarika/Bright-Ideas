@@ -10,9 +10,9 @@ UserRouter.post("/login", UserController.login);
 UserRouter.post("/logout", UserController.logout);
 
 // Add a protected route for getting all users
-//UserRouter.get("/users", authenticate, UserController.getAll);
+// UserRouter.get("/users", authenticate, UserController.getAll);
 
-UserRouter.route("/user/:id")
-    .get(UserController.getUserByID)
+UserRouter.route("/user/:id").get(UserController.getUserByID);
 
+// Export UserRouter as the default export
 export default UserRouter;
