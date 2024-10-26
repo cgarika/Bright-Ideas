@@ -36,17 +36,7 @@ const Login = (props) => {
       password: ""
     });
   
-    const handleLogin = async (e) => {
-      e.preventDefault();
-      try {
-        const response = await axios.post('http://localhost:8000/api/users/login', loginData, {withCredentials: true});
-        if (response.data.msg === "Login successful!") {
-          navigate('/bright_ideas');
-        }
-      } catch (err) {
-        setLoginErrors(err.response.data.errors || {message: "Login failed"});
-      }
-    };    
+  
 
     const firstNameHandler = (e) => {
       const value = e.target.value;
@@ -127,6 +117,45 @@ const Login = (props) => {
       setRegErrors((prevRegErrors) => ({...prevRegErrors, confirmPassword: errorMsg}));
     };
 
+    const registrationHandler = async (e) => {
+      e.preventDefault();
+      try {
+        const response = await axios.post("http://localhost:8000/api/register", registerData);
+        navigate("/bright_ideas");
+        setRegisterData({
+          firstName: '',
+          lastName: '',
+          email: '',
+          password: '',
+          confirmPassword: ''
+        })
+      } catch (error) {
+        console.error("Registration error:", error);
+        alert("Registration failed. Please try again.");
+      }
+    };
+
+    const handleLogin = async (e) => {
+      e.preventDefault();
+      try {
+        const response = await axios.post('http://localhost:8000/api/login', loginData, {withCredentials: true});
+        if (response.data.msg === "Login successful!") {
+          navigate('/bright_ideas');
+          setLoginData({
+            firstName: '',
+            lastName: '',
+            email: '',
+            password: '',
+            confirmPassword: ''
+          })
+        }
+      } catch (err) {
+        setLoginErrors(err.response.data.errors || {message: "Login failed"});
+      }
+    };  
+
+
+
   return (
     <div className="main-body__login">
       <div className="main-body__login-content">
@@ -135,7 +164,7 @@ const Login = (props) => {
             <h2>Register</h2>
           </div>
           <div className="form-body">
-            <form action="">
+            <form onSubmit={registrationHandler}>
             <div className="input-wrapper">
               <label htmlFor="firstName">First Name:</label>
               <input type="text" name="firstName" id="firstName" value={registerData.firstName} onChange={firstNameHandler} />
@@ -177,7 +206,7 @@ const Login = (props) => {
               <h2>Login</h2>
             </div>
             <div className="form-body">
-              <form action="">
+              <form onSubmit={registrationHandler}>
                 <div className="input-wrapper">
                   <label htmlFor="email">Email:</label>
                   <input type="email" name="email" id="email" value={loginData.email} onChange={(e) => emailHandler(e, true)} />

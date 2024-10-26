@@ -2,7 +2,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
 import cookieParser from "cookie-parser";
-//import { Server } from 'socket-io';
+
 
 //import our middleware and dbconnect function
 import dbConnect from "./config/mongoose.config.js";
@@ -30,34 +30,7 @@ dbConnect();
 
 //turn everything on and listen for requests
 app.listen(PORT, () => {
-  console.log(`Listing on ${PORT}`);
+  console.log(`Listening on ${PORT}`);
 });
 
-/* const server = app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-}); */
 
-/* const io = new Server(server, {
-  cors: {
-    orgin: "http://localhost:5173",
-    methods: ["GET", "POST"],
-    allowedHeaders: ["*"],
-    credentials: true,
-  },
-}); */
-
-/* let users = [];
-let messages = [];
-io.on("connection", (socket) => {
-  console.log("Connected ID: ", socket.id);
-
-  socket.on("new_user", (data) => {
-    users.push(data);
-    io.emit("users_in_chat", users);
-  });
-
-  socket.on("message", (data) => {
-    messages.push(data);
-    io.emit("messages", messages);
-  });
-}); */
