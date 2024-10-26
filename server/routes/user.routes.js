@@ -1,12 +1,15 @@
 import { Router } from "express";
 import UserController from "../controllers/user.controller.js";
+import { authenticate } from "../config/jwt.config.js";
 
 const UserRouter = Router();
 
-UserRouter.route("/register").post(UserController.register);
+// Define routes using UserController methods
+UserRouter.post("/register", UserController.register);
+UserRouter.post("/login", UserController.login);
+UserRouter.post("/logout", UserController.logout);
 
-UserRouter.route("/logout").post(UserController.logout);
-
-UserRouter.route("/login").post(UserController.login);
+// Add a protected route for getting all users
+//UserRouter.get("/users", authenticate, UserController.getAll);
 
 export default UserRouter;
