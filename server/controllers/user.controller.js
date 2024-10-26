@@ -1,6 +1,7 @@
-import UserModel from "../models/user.model.js";
-import jwt from "jsonwebtoken";
-import bcrypt from "bcrypt";
+import UserModel from "../models/user.model.js"
+import Post from "../models/post.model.js"
+import jwt from "jsonwebtoken"
+import bcrypt from "bcrypt"
 
 const UserController = {
   register: async (req, res) => {
@@ -49,21 +50,30 @@ const UserController = {
     res.clearCookie("userToken");
     return res.status(200).json({ msg: "Logout successful!" });
   },
-  getUserByID : async (req, res) => {
+  getUserById : async (req, res) => {
     const { id } = req.params
     try{
-      const USER = await UserModel.findById( id )
+      const USER = await UserModel.findById(id)
       if (!USER) {
         return res.status(404).json({ msg: 'User not found!' })
       }
-      const postCount = await Post.countDocuments({ user : id})
+      const postCount = await Post.countDocuments({ user : id }) // counts the documents that contain the specified user id associated to it
+      const likeCountResult = await Post.aggregate([
+        { $match: { user: mongoose.Types.ObjectId(id) } },
+        { $project: { likeCount: { $size: "$likes" } } }, //create new field called like count and assign it to the calculation of the number of elements in the likes array for each post, the likecount field only exists for the duration of the aggregation pipeline.
+        { $group: {_id: null, totalLikes: { $sum: "$likeCount"} } } // uses likeCount from the previous stage and calculates the total likes across all matched posts(posts are matched by the specified user id) $sum: "$likeCount" adds up the likeCount values from each document resulting in single value, totalLikes. 
+      ])
+      
+      const likeCount = likeCountResult[0]?.totalLikes || 0; // extracts the totalLikes from the aggregation result, if likeCountResult is empty it defaults to 0
+
       return res.status(200).json({
         USER, 
-        postCount
+        postCount,
+        likeCount
       });
     } catch (err) {
       return res.status(500).json(err)
-    }   
-  }
+    }
+  },
 };
 export default UserController;
