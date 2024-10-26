@@ -18,8 +18,12 @@ function App() {
       <>
         <Navbar />
         <Routes>
+<<<<<<< Updated upstream
           <Route path="/" element={<Login errors={errors} errorUpdater={errorUpdater} />}
           />
+=======
+          <Route path="/" element={<Login errors={errors} errorUpdater={errorUpdater} />}/>
+>>>>>>> Stashed changes
           <Route path="/bright_ideas" element={<DisplayAll />} />
           {/*<Route path="/bright_ideas/:id" element={<DisplayOne />} />*/}
           {/* <Route path="/users/:id" element={<DisplayUser />} /> */}

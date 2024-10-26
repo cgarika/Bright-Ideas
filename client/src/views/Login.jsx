@@ -1,17 +1,23 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Button from 'react-bootstrap/Button';
+import { userContext } from '../context/userContext';
 
 const Login = (props) => {
-  const navigate = useNavigate();
   const {errors, errorUpdater} = props;
+
+  const {user, setUser} = useContext(userContext)
+  const navigate = useNavigate();
+
+  // Single-state object for login data
   const [loginData, setLoginData] = useState(
     {
       email: '',
       password: ''
     });
 
+  // Single-state object for registration data
   const [registerData, setRegisterData] = useState(
     {
       firstName: '',
@@ -121,6 +127,7 @@ const Login = (props) => {
       e.preventDefault();
       try {
         const response = await axios.post("http://localhost:8000/api/register", registerData);
+        setUser(response.data)
         navigate("/bright_ideas");
         setRegisterData({
           firstName: '',
@@ -140,6 +147,7 @@ const Login = (props) => {
       try {
         const response = await axios.post('http://localhost:8000/api/login', loginData, {withCredentials: true});
         if (response.data.msg === "Login successful!") {
+          setUser(response.data)
           navigate('/bright_ideas');
           setLoginData({
             firstName: '',
@@ -161,10 +169,10 @@ const Login = (props) => {
       <div className="main-body__login-content">
         <div className="form-wrapper">
           <div className="form-wrapper__top">
-            <h2>Register</h2>
+            <h3>Register</h3>
           </div>
-          <div className="form-body">
-            <form onSubmit={registrationHandler}>
+          <div>
+            <form onSubmit={registrationHandler} className="form-body" >
             <div className="input-wrapper">
               <label htmlFor="firstName">First Name:</label>
               <input type="text" name="firstName" id="firstName" value={registerData.firstName} onChange={firstNameHandler} />
@@ -203,10 +211,10 @@ const Login = (props) => {
         </div>
         <div className="form-wrapper">
             <div className="form-wrapper__top">
-              <h2>Login</h2>
+              <h3>Login</h3>
             </div>
-            <div className="form-body">
-              <form onSubmit={registrationHandler}>
+            <div>
+              <form onSubmit={registrationHandler} className="form-body" >
                 <div className="input-wrapper">
                   <label htmlFor="email">Email:</label>
                   <input type="email" name="email" id="email" value={loginData.email} onChange={(e) => emailHandler(e, true)} />
