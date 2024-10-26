@@ -1,13 +1,3 @@
-<<<<<<< Updated upstream
-import 'bootstrap/dist/css/bootstrap.min.css';
-import React from 'react'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import DisplayAll from './views/DisplayAll'
-import DisplayUser from './views/DisplayUser'
-import Login from './views/Login'
-import Navbar from './components/Navbar'
-import './App.css'
-=======
 import "bootstrap/dist/css/bootstrap.min.css";
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -17,7 +7,6 @@ import Login from "./views/Login";
 import Navbar from "./components/Navbar";
 import Register from "./views/Register";
 import "./App.css";
->>>>>>> Stashed changes
 
 function App() {
   // const [errors, setErrors] = useState({});
