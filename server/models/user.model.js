@@ -1,5 +1,6 @@
 import { model, Schema } from "mongoose";
 import bcrypt from "bcrypt";
+import mongoose from "mongoose";
 
 const UserSchema = new Schema(
   {
@@ -26,9 +27,7 @@ const UserSchema = new Schema(
       minlength: [8, "Password must be at least 8 characters long."],
     },
 
-
-    posts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Post' }]
-
+    posts: [{ type: mongoose.Schema.Types.ObjectId, ref: "Post" }],
   },
   { timestamps: true }
 );
