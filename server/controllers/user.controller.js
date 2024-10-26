@@ -49,5 +49,21 @@ const UserController = {
     res.clearCookie("userToken");
     return res.status(200).json({ msg: "Logout successful!" });
   },
+  getUserByID : async (req, res) => {
+    const { id } = req.params
+    try{
+      const USER = await UserModel.findById( id )
+      if (!USER) {
+        return res.status(404).json({ msg: 'User not found!' })
+      }
+      const postCount = await Post.countDocuments({ user : id})
+      return res.status(200).json({
+        USER, 
+        postCount
+      });
+    } catch (err) {
+      return res.status(500).json(err)
+    }   
+  }
 };
 export default UserController;
