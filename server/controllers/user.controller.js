@@ -39,7 +39,7 @@ const UserController = {
 
       return res
         .cookie("userToken", userToken, { httpOnly: true })
-        .json({ msg: "Login successful!" });
+        .json({ msg: "Login successful!", token: userToken });
     } catch (err) {
       console.log(err);
       return res.status(400).json(err);

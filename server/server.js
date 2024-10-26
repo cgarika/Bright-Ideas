@@ -3,12 +3,11 @@ import dotenv from "dotenv";
 import express from "express";
 import cookieParser from "cookie-parser";
 
-
 //import our middleware and dbconnect function
 import dbConnect from "./config/mongoose.config.js";
 import UserRouter from "./routes/user.routes.js";
-/*import PostRouter from "./routes/post.route.js";
-import LikeRouter from "./routes/like.route.js"; */
+import router from "./routes/post.route.js";
+/*import LikeRouter from "./routes/like.route.js"; */
 
 //pull in environment variables
 dotenv.config();
@@ -22,8 +21,8 @@ app.use(cors({ credentials: true, origin: "http://localhost:5173" }));
 app.use(express.json());
 app.use(cookieParser());
 app.use("/api", UserRouter);
-/*app.use("/api", PostRouter);
-app.use("/api", LikeRouter); */
+app.use("/api/posts", router);
+/*app.use("/api", LikeRouter); */
 
 //establish a connection to MongoDB
 dbConnect();
@@ -32,5 +31,3 @@ dbConnect();
 app.listen(PORT, () => {
   console.log(`Listening on ${PORT}`);
 });
-
-
