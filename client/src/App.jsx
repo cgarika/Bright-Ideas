@@ -5,7 +5,6 @@ import DisplayAll from "./views/DisplayAll";
 //import DisplayUser from "./views/DisplayUser";
 import Login from "./views/Login";
 import Navbar from "./components/Navbar";
-import Register from "./views/Register";
 import "./App.css";
 
 function App() {
@@ -19,7 +18,6 @@ function App() {
       <>
         <Navbar />
         <Routes>
-          {/* <Route path="/" element={<Register />} /> */}
           <Route path="/" element={<Login errors={errors} errorUpdater={errorUpdater} />}
           />
           <Route path="/bright_ideas" element={<DisplayAll />} />
