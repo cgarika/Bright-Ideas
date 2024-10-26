@@ -27,7 +27,7 @@ const Login = (props) => {
     password: ""
   });
   
-<<<<<<< Updated upstream
+
   
 
     const firstNameHandler = (e) => {
@@ -44,19 +44,7 @@ const Login = (props) => {
         }
         setRegisterData((prevRegisterData) => ({...prevRegisterData, firstName: value}));
         setRegErrors((prevRegErrors) => ({...prevRegErrors, firstName: errorMsg}))
-=======
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await axios.post('http://localhost:8000/api/users/login', loginData, {withCredentials: true});
-      if (response.data.msg === "Login successful!") {
-        navigate('/bright_ideas');
-      }
-    } catch (err) {
-      setLoginErrors(err.response.data.errors || {message: "Login failed"});
->>>>>>> Stashed changes
-    }
-  };    
+    };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -152,7 +140,7 @@ const Login = (props) => {
             <h2>Register</h2>
           </div>
           <div className="form-body">
-<<<<<<< Updated upstream
+
             <form onSubmit={registrationHandler}>
             <div className="input-wrapper">
               <label htmlFor="firstName">First Name:</label>
@@ -187,7 +175,6 @@ const Login = (props) => {
               <div className="form-button__wrapper">
                 <Button type='submit' variant='primary'>Register</Button>
               </div>
-=======
             <form onSubmit={handleSubmit}>
               <input type="text" name="firstName" value={registerData.firstName} onChange={handleChange} placeholder="First Name" required />
               <input type="text" name="lastName" value={registerData.lastName} onChange={handleChange} placeholder="Last Name" required />
@@ -196,7 +183,6 @@ const Login = (props) => {
               <input type="password" name="confirmPassword" value={registerData.confirmPassword} onChange={handleChange} placeholder="Confirm Password" required />
               <button type="submit">Register</button>
               {regErrors && <div style={{ color: 'red' }}>{JSON.stringify(regErrors)}</div>}
->>>>>>> Stashed changes
             </form>
           </div>
         </div>
