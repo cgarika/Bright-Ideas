@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Button from 'react-bootstrap/Button';
@@ -12,30 +12,22 @@ const Login = (props) => {
       password: ''
     });
 
-  const [registerData, setRegisterData] = useState(
-    {
-      firstName: '',
-      lastName: '',
-      email: '',
-      password: '',
-      confirmPassword: ''
-    }
-  )
+  const [registerData, setRegisterData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+    confirmPassword: ''
+  });
 
-    // SINGLE-STATE OBJECT for the form errors needed for front end validation
-    const [regErrors, setRegErrors] = useState({
-      firstName: "",
-      lastName: "",
-      email: "",
-      password: "",
-      confirmPassword: ""
-    })
+  const [regErrors, setRegErrors] = useState({});
 
-    const [loginErrors, setLoginErrors] = useState({
-      email: "",
-      password: ""
-    });
+  const [loginErrors, setLoginErrors] = useState({
+    email: "",
+    password: ""
+  });
   
+<<<<<<< Updated upstream
   
 
     const firstNameHandler = (e) => {
@@ -52,70 +44,66 @@ const Login = (props) => {
         }
         setRegisterData((prevRegisterData) => ({...prevRegisterData, firstName: value}));
         setRegErrors((prevRegErrors) => ({...prevRegErrors, firstName: errorMsg}))
+=======
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post('http://localhost:8000/api/users/login', loginData, {withCredentials: true});
+      if (response.data.msg === "Login successful!") {
+        navigate('/bright_ideas');
+      }
+    } catch (err) {
+      setLoginErrors(err.response.data.errors || {message: "Login failed"});
+>>>>>>> Stashed changes
     }
+  };    
 
-    const lastNameHandler = (e) => {
-      const value = e.target.value;
-      let errorMsg = '';
-        if (value) {
-          if (value.length < 2) {
-            errorMsg = "Last name must be at least 2 characters long";
-          } else if (value.length > 40) {
-            errorMsg = "Last name cannot exceed 40 characters!";
-          }
-        } else {
-          errorMsg = "Last name is required!"
-        }
-        setRegisterData((prevRegisterData) => ({...prevRegisterData, lastName: value}));
-        setRegErrors((prevRegErrors) => ({...prevRegErrors, lastName: errorMsg}))
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setRegisterData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post('http://localhost:8000/api/register', registerData, { withCredentials: true });
+      console.log('Registration successful:', response.data);
+    } catch (err) {
+      console.error('Registration error:', err);
+      if (err.response && err.response.data) {
+        setRegErrors(err.response.data.errors);
+      }
     }
+  };
 
-    const emailHandler = (e, isLogin = false) => {
-      const value = e.target.value;
-      let errorMsg = '';
-      if (!value) {
-        errorMsg = "Email is required!";
-      }
-      if (isLogin) {
-        setLoginData(prev => ({ ...prev, email: value }));
-        setLoginErrors(prev => ({ ...prev, email: errorMsg }));
-      } else {
-        setRegisterData(prev => ({ ...prev, email: value }));
-        setRegErrors(prev => ({ ...prev, email: errorMsg }));
-      }
-    };
+  const emailHandler = (e, isLogin = false) => {
+    const value = e.target.value;
+    let errorMsg = '';
+    if (!value) {
+      errorMsg = "Email is required!";
+    }
+    if (isLogin) {
+      setLoginData(prev => ({ ...prev, email: value }));
+      setLoginErrors(prev => ({ ...prev, email: errorMsg }));
+    }
+  };
 
-    const passwordHandler = (e, isLogin = false) => {
-      const value = e.target.value;
-      let errorMsg = '';
-      
-      if (!value) {
-        errorMsg = "Password is required!";
-      } else if (value.length < 8) {
-        errorMsg = "Password must be at least 8 characters long.";
-      } else if (value.length > 40) {
-        errorMsg = "Password cannot exceed 40 characters!";
-      }
-      if (isLogin) {
-        setLoginData(prev => ({ ...prev, password: value }));
-        setLoginErrors(prev => ({ ...prev, password: errorMsg }));
-      } else {
-        setRegisterData(prev => ({ ...prev, password: value }));
-        setRegErrors(prev => ({ ...prev, password: errorMsg }));
-      }
-    };
-
-    const confirmPasswordHandler = (e) => {
-      const value = e.target.value;
-      let errorMsg = '';
-  
-      if (value !== registerData.password) {
-        errorMsg = "Passwords do not match!";
-      }
-  
-      setRegisterData((prevRegisterData) => ({...prevRegisterData, confirmPassword: value}));
-      setRegErrors((prevRegErrors) => ({...prevRegErrors, confirmPassword: errorMsg}));
-    };
+  const passwordHandler = (e, isLogin = false) => {
+    const value = e.target.value;
+    let errorMsg = '';
+    
+    if (!value) {
+      errorMsg = "Password is required!";
+    } else if (value.length < 8) {
+      errorMsg = "Password must be at least 8 characters long.";
+    } else if (value.length > 40) {
+      errorMsg = "Password cannot exceed 40 characters!";
+    }
+    if (isLogin) {
+      setLoginData(prev => ({ ...prev, password: value }));
+      setLoginErrors(prev => ({ ...prev, password: errorMsg }));
+    }
+  };
 
     const registrationHandler = async (e) => {
       e.preventDefault();
@@ -164,6 +152,7 @@ const Login = (props) => {
             <h2>Register</h2>
           </div>
           <div className="form-body">
+<<<<<<< Updated upstream
             <form onSubmit={registrationHandler}>
             <div className="input-wrapper">
               <label htmlFor="firstName">First Name:</label>
@@ -198,6 +187,16 @@ const Login = (props) => {
               <div className="form-button__wrapper">
                 <Button type='submit' variant='primary'>Register</Button>
               </div>
+=======
+            <form onSubmit={handleSubmit}>
+              <input type="text" name="firstName" value={registerData.firstName} onChange={handleChange} placeholder="First Name" required />
+              <input type="text" name="lastName" value={registerData.lastName} onChange={handleChange} placeholder="Last Name" required />
+              <input type="email" name="email" value={registerData.email} onChange={handleChange} placeholder="Email" required />
+              <input type="password" name="password" value={registerData.password} onChange={handleChange} placeholder="Password" required />
+              <input type="password" name="confirmPassword" value={registerData.confirmPassword} onChange={handleChange} placeholder="Confirm Password" required />
+              <button type="submit">Register</button>
+              {regErrors && <div style={{ color: 'red' }}>{JSON.stringify(regErrors)}</div>}
+>>>>>>> Stashed changes
             </form>
           </div>
         </div>
@@ -228,7 +227,6 @@ const Login = (props) => {
       </div>
     </div>
   )
-
 }
 
 export default Login;
