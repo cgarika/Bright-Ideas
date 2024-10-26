@@ -5,6 +5,34 @@
   padding: 0;
 }
 
+h1, h2, h3, h4, h5, p {
+  font-family: 'Montserrat';
+}
+
+/* Navbar  */
+.navbar-wrapper {
+  display: flex;
+  justify-content: center;
+  padding: 1em 5em;
+  background-color: #0A61CB;
+  color: white;
+}
+.navbar-inner {
+  display: flex;
+  justify-content: space-between;
+  width: 1000px;
+  align-items: center;
+}
+
+.nav-links__wrapper {
+  font-family: 'Montserrat';
+}
+
+.nav-links {
+  color: white;
+  text-decoration: none;
+}
+
 /* Homepage Styling */
 
 .main-body__login{
@@ -46,4 +74,53 @@
 .form-button__wrapper {
   display: flex;
   justify-content: flex-end;
+}
+
+/* DisplayAll Posts page styling */
+.main-body__dashboard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 1000px;
+  padding: 5em 5em;
+}
+
+.dashboard-content__top {
+  width: inherit;
+  /* padd */
+}
+
+.post-form__wrapper {
+  padding: 2em 2em;
+}
+
+.post-form {
+  display: flex;
+  align-items: center;
+  gap: 2em;
+}
+
+.post-input__field {
+  width: 30em;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.dashboard-content__bottom {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 2em;
+  padding-bottom: 2em;
+  gap: 2em;
+}
+
+.post-wrapper {
+  display: flex;
+  justify-content: space-between;
+  width: 500px;
+  border: 2px solid black;
+}
+
+.post-content {
+  border: 2px solid black;
 }
