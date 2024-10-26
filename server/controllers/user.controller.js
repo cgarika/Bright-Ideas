@@ -19,6 +19,8 @@ const UserController = {
       return res.status(400).json(err);
     }
   },
+
+
   login: async (req, res) => {
     try {
       const user = await UserModel.findOne({ email: req.body.email });
@@ -46,6 +48,8 @@ const UserController = {
       return res.status(400).json(err);
     }
   },
+
+  
   logout: async (req, res) => {
     res.clearCookie("userToken");
     return res.status(200).json({ msg: "Logout successful!" });

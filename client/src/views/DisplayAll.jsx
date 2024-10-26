@@ -32,10 +32,10 @@ const DisplayAll = (props) => {
     <div className='main-body__dashboard'>
       <div className="dashboard-content">
         <div className="dashboard-content__top">
-          <div className="post-form__wrapp">
-            <form action="">
+          <div className="post-form__wrapper">
+            <form action="" className='post-form'>
               <div className="post-input__wrapper">
-                <input type="text" name="content" id="content" />
+                <input type="text" name="content" id="content" className='post-input__field'/>
               </div>
               <div className="post-button__wrapper">
               <Button type='submit' variant='primary'>Idea!</Button>
@@ -61,7 +61,6 @@ const DisplayAll = (props) => {
           
         </div>
       </div>
-      <h1>Login Successful!</h1>
     </div>
   )
 }
