@@ -2,6 +2,7 @@ import UserModel from "../models/user.model.js"
 import Post from "../models/post.model.js"
 import jwt from "jsonwebtoken"
 import bcrypt from "bcrypt"
+import mongoose from "mongoose"
 
 const UserController = {
   register: async (req, res) => {
@@ -13,7 +14,7 @@ const UserController = {
       return res
         .cookie("userToken", userToken, { httpOnly: true })
         .status(201)
-        .json(newUser);
+        .json({newUser, msg: "user created", token: userToken});
     } catch (err) {
       console.log(err);
       return res.status(400).json(err);
@@ -55,15 +56,18 @@ const UserController = {
     return res.status(200).json({ msg: "Logout successful!" });
   },
   getUserById : async (req, res) => {
-    const { id } = req.params
+    console.log("running!")
+    console.log("about to run try block!")
     try{
+      const { id } = req.params
       const USER = await UserModel.findById(id)
       if (!USER) {
         return res.status(404).json({ msg: 'User not found!' })
       }
-      const postCount = await Post.countDocuments({ user : id }) // counts the documents that contain the specified user id associated to it
+      const postCount = await Post.countDocuments({ user : id })
+      console.log(postCount) // counts the documents that contain the specified user id associated to it
       const likeCountResult = await Post.aggregate([
-        { $match: { user: mongoose.Types.ObjectId(id) } },
+        { $match: { user: new mongoose.Types.ObjectId(id) } },
         { $project: { likeCount: { $size: "$likes" } } }, //create new field called like count and assign it to the calculation of the number of elements in the likes array for each post, the likecount field only exists for the duration of the aggregation pipeline.
         { $group: {_id: null, totalLikes: { $sum: "$likeCount"} } } // uses likeCount from the previous stage and calculates the total likes across all matched posts(posts are matched by the specified user id) $sum: "$likeCount" adds up the likeCount values from each document resulting in single value, totalLikes. 
       ])
@@ -76,6 +80,7 @@ const UserController = {
         likeCount
       });
     } catch (err) {
+      console.error(err)
       return res.status(500).json(err)
     }
   },
