@@ -7,7 +7,7 @@ import cookieParser from "cookie-parser";
 import dbConnect from "./config/mongoose.config.js";
 import UserRouter from "./routes/user.routes.js";
 import router from "./routes/post.route.js";
-/*import LikeRouter from "./routes/like.route.js"; */
+import LikeRouter from "./routes/like.route.js";
 
 //pull in environment variables
 dotenv.config();
@@ -22,7 +22,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use("/api", UserRouter);
 app.use("/api/posts", router);
-/*app.use("/api", LikeRouter); */
+app.use("/api", LikeRouter); 
 
 //establish a connection to MongoDB
 dbConnect();
