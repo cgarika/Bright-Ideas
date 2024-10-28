@@ -1,43 +1,36 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import { Link, useParams } from 'react-router-dom';
+import { userContext } from '../context/userContext';
 
 const ViewOnePost = () => {
-  const { postId } = useParams();
+  const { id } = useParams();
+  const { user } = useContext(userContext)
   const [post, setPost] = useState(null);
 
   useEffect(() => {
-    const fetchPostData = async () => {
-      try {
-        const response = await axios.get(`http://localhost:8000/api/posts/${postId}`, { withCredentials: true });
-        setPost(response.data);
-      } catch (error) {
-        console.error('Error fetching post data:', error);
-      }
-    };
+    axios.get(`http://localhost:8000/api/posts/${id}`, { withCredentials: true })
+      .then((res) => {
+        console.log(res.data)
+        setPost(res.data)
+      })
+      .catch((err) => {
+        console.log("Failed to fetch the post", err)
+      })
+  }, [id]);
 
-    fetchPostData();
-  }, [postId]);
 
-  if (!post) {
-    return <div>Loading...</div>;
-  }
 
   return (
-    <div>
-      <h1>Post Details</h1>
-      <div>
-        <Link to={`/user/${post.user._id}`}>{post.user.firstName}</Link>: {post.content}
-      </div>
-      <div>
-        <h2>Users who liked this post:</h2>
-        <ul>
-          {post.likes.map((user) => (
-            <li key={user._id}>
-              <Link to={`/user/${user._id}`}>{user.firstName}</Link>
-            </li>
-          ))}
-        </ul>
+    <div className="post-details__content">
+      <div className="post-details__top">
+        <div className="post-content__wrapper">
+          <div className="post-user__wrapper">
+          </div>
+          <div className="post-content">
+            <p>{post.content}</p>
+          </div>
+        </div>
       </div>
     </div>
   );

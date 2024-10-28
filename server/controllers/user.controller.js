@@ -1,3 +1,4 @@
+import mongoose from "mongoose"
 import UserModel from "../models/user.model.js"
 import Post from "../models/post.model.js"
 import jwt from "jsonwebtoken"
@@ -8,13 +9,21 @@ const UserController = {
   register: async (req, res) => {
     try {
       const newUser = await UserModel.create(req.body);
-
       const userToken = jwt.sign({ id: newUser._id }, process.env.SECRET_KEY);
-
+  
       return res
         .cookie("userToken", userToken, { httpOnly: true })
         .status(201)
-        .json({newUser, msg: "user created", token: userToken});
+        .json({
+          msg: "Registration successful!",
+          user: {
+            _id: newUser._id,
+            firstName: newUser.firstName,
+            lastName: newUser.lastName,
+            email: newUser.email,
+          },
+          token: userToken,
+        });
     } catch (err) {
       console.log(err);
       return res.status(400).json(err);
@@ -25,25 +34,29 @@ const UserController = {
   login: async (req, res) => {
     try {
       const user = await UserModel.findOne({ email: req.body.email });
-
+  
       if (!user) {
         return res.status(400).json({ errors: { message: "User not found" } });
       }
-
-      const isCorrectPassword = await bcrypt.compare(
-        req.body.password,
-        user.password
-      );
-
+  
+      const isCorrectPassword = await bcrypt.compare(req.body.password, user.password);
       if (!isCorrectPassword) {
-        return res.status(400).json({ errors: { message: "User not found" } });
+        return res.status(400).json({ errors: { message: "Invalid password" } });
       }
-
+  
       const userToken = jwt.sign({ id: user._id }, process.env.SECRET_KEY);
-
       return res
         .cookie("userToken", userToken, { httpOnly: true })
-        .json({ msg: "Login successful!", token: userToken });
+        .json({
+          msg: "Login successful!",
+          user: {
+            _id: user._id,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            email: user.email,
+          },
+          token: userToken,
+        });
     } catch (err) {
       console.log(err);
       return res.status(400).json(err);
@@ -55,9 +68,9 @@ const UserController = {
     res.clearCookie("userToken");
     return res.status(200).json({ msg: "Logout successful!" });
   },
+
+
   getUserById : async (req, res) => {
-    console.log("running!")
-    console.log("about to run try block!")
     try{
       const { id } = req.params
       const USER = await UserModel.findById(id)
@@ -85,4 +98,5 @@ const UserController = {
     }
   },
 };
+
 export default UserController;

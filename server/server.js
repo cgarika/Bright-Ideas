@@ -6,7 +6,7 @@ import cookieParser from "cookie-parser";
 //import our middleware and dbconnect function
 import dbConnect from "./config/mongoose.config.js";
 import UserRouter from "./routes/user.routes.js";
-import router from "./routes/post.route.js";
+import PostRouter from "./routes/post.route.js";
 import LikeRouter from "./routes/like.route.js";
 
 //pull in environment variables
@@ -20,9 +20,7 @@ const PORT = 8000;
 app.use(cors({ credentials: true, origin: "http://localhost:5173" }));
 app.use(express.json());
 app.use(cookieParser());
-app.use("/api", UserRouter);
-app.use("/api/posts", router);
-app.use("/api", LikeRouter); 
+app.use("/api", UserRouter, PostRouter, LikeRouter);
 
 //establish a connection to MongoDB
 dbConnect();

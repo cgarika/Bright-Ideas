@@ -126,8 +126,9 @@ const Login = (props) => {
     const registrationHandler = async (e) => {
       e.preventDefault();
       try {
-        const response = await axios.post("http://localhost:8000/api/register", registerData);
-        setUser(response.data)
+        const response = await axios.post("http://localhost:8000/api/register", registerData, {withCredentials: true});
+        setUser(response.data.user)
+        localStorage.setItem('user', JSON.stringify(response.data.user));
         navigate("/bright_ideas");
         setRegisterData({
           firstName: '',
@@ -147,7 +148,8 @@ const Login = (props) => {
       try {
         const response = await axios.post('http://localhost:8000/api/login', loginData, {withCredentials: true});
         if (response.data.msg === "Login successful!") {
-          setUser(response.data)
+          setUser(response.data.user);
+          localStorage.setItem('user', JSON.stringify(response.data.user));
           navigate('/bright_ideas');
           setLoginData({
             firstName: '',
@@ -155,12 +157,12 @@ const Login = (props) => {
             email: '',
             password: '',
             confirmPassword: ''
-          })
+          });
         }
       } catch (err) {
         setLoginErrors(err.response.data.errors || {message: "Login failed"});
       }
-    };  
+    };
 
 
 

@@ -1,4 +1,4 @@
-import { model, Schema, Types } from "mongoose";
+import mongoose, { model, Schema, Types } from "mongoose";
 
 const PostSchema = new Schema(
   {
@@ -8,16 +8,8 @@ const PostSchema = new Schema(
       minlength: [10, "Must be at least 10 characters long!"],
       maxlength: [255, "Must be less than 255 characters long!"],
     },
-    user: {
-      type: Types.ObjectId,
-      ref: "User",
-    },
-    likes: [
-      {
-        type: Types.ObjectId,
-        ref: "User",
-      },
-    ],
+    user: {type: mongoose.Schema.Types.ObjectId, ref: "User"},
+    likes: [{type: mongoose.Schema.Types.ObjectId, ref: "User"}],
   },
   { timestamps: true }
 );

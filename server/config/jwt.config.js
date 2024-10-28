@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 
 const authenticate = (req, res, next) => {
-  const token = req.cookies.usertoken; // Retrieve 'usertoken' from cookies
+  const token = req.cookies.userToken; // Retrieve 'usertoken' from cookies
 
   // Log the token received
   console.log("Received Token:", token);

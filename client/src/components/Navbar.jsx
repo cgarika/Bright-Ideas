@@ -17,6 +17,8 @@ const Navbar = () => {
         e.preventDefault();
         axios.post('http://localhost:8000/api/logout', {}, {withCredentials: true})
         .then(() => {
+            setUser({});
+            localStorage.removeItem('user');
             navigate('/')
         })
         .catch((err) => {

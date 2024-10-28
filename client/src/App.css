@@ -5,6 +5,13 @@
   padding: 0;
 }
 
+body {
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: flex-start; /* Align at the top */
+  min-height: 100vh; /* Full viewport height */
+}
+
 h1, h2, h3, h4, h5, p {
   font-family: 'Montserrat';
 }
@@ -25,6 +32,8 @@ h1, h2, h3, h4, h5, p {
 }
 
 .nav-links__wrapper {
+  display: flex;
+  gap: 2em;
   font-family: 'Montserrat';
 }
 
@@ -80,9 +89,23 @@ h1, h2, h3, h4, h5, p {
 .main-body__dashboard {
   display: flex;
   flex-direction: column;
+  align-self: center;
+  align-items: center; 
+  align-content: center;
+  /* width: 100%; /* Full width  */
+  /* max-width: 1000px; */
+  padding: 5em;
+}
+
+.dashboard-heading {
+  align-self: flex-start;
+}
+
+.dashboard-content {
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  width: 1000px;
-  padding: 5em 5em;
+  width: 100%;
 }
 
 .dashboard-content__top {
@@ -91,7 +114,9 @@ h1, h2, h3, h4, h5, p {
 }
 
 .post-form__wrapper {
-  padding: 2em 2em;
+  display: flex;
+  justify-content: center;
+  padding: 2em 0em;
 }
 
 .post-form {
@@ -116,11 +141,40 @@ h1, h2, h3, h4, h5, p {
 
 .post-wrapper {
   display: flex;
+  flex-direction: column;
+  justify-content: space-evenly; /* Space between elements */
+  align-items: center; /* Center child elements */
+  gap: 1em; /* Space between posts */
+  width: 100%; /* Make sure it takes full width */
+  max-width: 25em; /* Optional: limit the width of individual posts */
+}
+
+.post-user__wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 10em;
+}
+
+.post-content__wrapper {
+  display: flex;
   justify-content: space-between;
-  width: 500px;
-  border: 2px solid black;
+  width: 35em;
+  height: fit-content;
+  /* gap: 1em; */
 }
 
 .post-content {
-  border: 2px solid black;
+  border: 2px solid lightgray;
+  min-width: 25em;
+  max-width: 25em; /* Consider using percentage for responsiveness */
+  padding-left: 1em;
+  padding-right: 1em;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.post-links__wrapper {
+  display: flex;
+  justify-content: center; 
+  width: 100%; 
+  gap: 2em;
 }
