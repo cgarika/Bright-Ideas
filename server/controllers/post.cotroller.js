@@ -1,4 +1,5 @@
 import Post from "../models/post.model.js";
+import User from '../models/user.model.js';
 
 const PostController = {
   // Create a new post
@@ -48,8 +49,8 @@ const PostController = {
   // Get a single post by ID
   getOnePost: async (req, res) => {
     try {
-      const { id } = req.params;
-      const post = await Post.findById(id)
+      const { postId } = req.params;
+      const post = await Post.findById(postId).populate('user')
         .populate("user")
         .populate({
           path: "likes",
@@ -66,6 +67,31 @@ const PostController = {
       return res
         .status(500)
         .json({ error: "Failed to retrieve post", details: err.message });
+    }
+  },
+
+  getPostWithLikes: async (req, res) => {
+    try {
+      const { id } = req.params;
+      console.log("Fetching post with ID: ", id)
+      const post = await Post.findById(id).populate('user', 'firstName lastName');
+
+      if (!post) {
+        return res.status(404).json({message: 'Post not found'})
+      }
+
+      const usersWhoLiked = await User.find({_id: { $in: post.likes }});
+      return res.status(200).json({
+        post,
+        likes: usersWhoLiked.map(user => ({
+          id:user._id,
+          firstName: user.firstName,
+          lastName: user.lastName
+        })),
+      })
+    } catch(err) {
+      console.log(err);
+      return res.status(500).json({ message: 'Server error'});
     }
   },
 
