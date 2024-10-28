@@ -3,7 +3,7 @@ import UserModel from "../models/user.model.js"
 import Post from "../models/post.model.js"
 import jwt from "jsonwebtoken"
 import bcrypt from "bcrypt"
-import mongoose from "mongoose"
+
 
 const UserController = {
   register: async (req, res) => {

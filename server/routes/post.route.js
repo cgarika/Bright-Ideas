@@ -12,8 +12,9 @@ PostRouter
 
   PostRouter
   .route("/posts/:id")
-  .get(authenticate,  PostController.getOnePost) // Public: Get a single post
+  .get(  PostController.getPostWithLikes) // Public: Get a single post
   .delete(authenticate, PostController.deletePost) // Protected: Delete post
   .put(authenticate, PostController.updatePost); // Protected: Update post
+
 
 export default PostRouter;
