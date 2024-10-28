@@ -21,8 +21,8 @@ const PostController = {
         content,
         user: userId, // Use user ID from the verified token
       });
-
-      return res.status(201).json(newPost);
+      const populatedPost = await Post.findById(newPost._id).populate("user");
+      return res.status(201).json(populatedPost);
     } catch (err) {
       return res
         .status(500)
@@ -34,7 +34,7 @@ const PostController = {
   getAllPosts: async (req, res) => {
     try {
       const allPosts = await Post.find()
-        .populate("user", "username")
+        .populate("user")
         .sort({ createdAt: -1 });
 
       return res.status(200).json(allPosts);
@@ -49,7 +49,13 @@ const PostController = {
   getOnePost: async (req, res) => {
     try {
       const { id } = req.params;
-      const post = await Post.findById(id).populate("user", "username");
+      const post = await Post.findById(id)
+        .populate("user")
+        .populate({
+          path: "likes",
+          model: "user",
+          select: "firstName lastName"
+        })
 
       if (!post) {
         return res.status(404).json({ error: "Post not found" });
@@ -79,7 +85,7 @@ const PostController = {
         return res.status(403).json({ error: "Unauthorized action" });
       }
 
-      await post.deleteOne();
+      await Post.findByIdAndDelete(id);
       return res.status(204).send(); // No content
     } catch (err) {
       return res
