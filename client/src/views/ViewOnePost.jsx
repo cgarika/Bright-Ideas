@@ -5,6 +5,8 @@ import { userContext } from '../context/userContext';
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/esm/Button';
 
+import light_bulb from '../assets/light-bulb.png'
+
 const ViewOnePost = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -62,25 +64,27 @@ const postUser = post.user || {};
       </div>
       <div className="post-details__bottom">
         <div className="post-likes__table-wrapper">
-          <h4>People who like this post:</h4>
-          <Table striped>
+          <h4 style={{color: 'white'}}>People who like this post:</h4>
+          <Table striped bordered className='likes-table'>
             <thead>
               <tr>
-                <th>Username</th>
-                <th>Full Name</th>
+                <th className="bg-primary text-white">Username</th>
+                <th className="bg-primary text-white">Full Name</th>
               </tr>
             </thead>
             <tbody>
               {likes.map(likeUser => (
                 <tr key={likeUser._id}>
-                  <td>{likeUser.firstName}</td>
+                  <td><Link to={`/users/${likeUser.id}`}>{likeUser.firstName}</Link> </td>
                   <td>{likeUser.firstName} {likeUser.lastName}</td>
                 </tr>
               ))}
             </tbody>
           </Table>
         </div>
-      </div>
+        <div className="post-details__image-wrapper">
+        </div>
+        </div>
     </div>
   );
 };

@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import { useLocation, Link, useNavigate } from 'react-router-dom';
 import { userContext } from '../context/userContext';
 import axios from 'axios';
+import logo from '../assets/light-bulb.png'
 
 
 const Navbar = () => {
@@ -30,6 +31,7 @@ const Navbar = () => {
         <div className="navbar-wrapper">
             <div className="navbar-inner">
                 <div className="logo-wrapper">
+                    <img className='logo' src={logo} alt="Light Bulb Logo" />
                     <h1>Bright Ideas</h1>
                 </div>
                 <div className="nav-links__wrapper">
