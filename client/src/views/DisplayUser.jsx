@@ -32,13 +32,16 @@ const DisplayUser = () => {
 
   return (
     <div className="user-content__wrapper">
-      <div className="user-content__top">
-        <p><strong>Name: </strong>{postUser.firstName}</p>
-        <p><strong>Email: </strong>{postUser.email}</p>
-      </div>
-      <div className="user-content__bottom">
-        <p><strong>Total Number of Posts: </strong>{postCount}</p>
-        <p><strong>Total Number of Likes: </strong>{likeCount}</p>
+      <div className="user-content">
+        <div className="user-content__top">
+          <p><strong>Name: </strong>{postUser.firstName} {postUser.lastName}</p>
+          <p><strong>Email: </strong>{postUser.email}</p>
+        </div>
+        <div className="user-content__bottom">
+          <p><strong>Total Number of Posts: </strong>{postCount}</p>
+          <p><strong>Total Number of Likes: </strong>{likeCount}</p>
+        </div>
+
       </div>
     </div>
   );

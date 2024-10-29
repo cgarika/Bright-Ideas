@@ -9,7 +9,11 @@ body {
   display: flex;
   justify-content: center; /* Center horizontally */
   align-items: flex-start; /* Align at the top */
-  min-height: 100vh; /* Full viewport height */
+  /* min-height: 100vh;  */
+  background-image: url('/Users/antonioelias/Desktop/Bright-Ideas/client/src/assets/light-bulb-bg.webp');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 h1, h2, h3, h4, h5, p {
@@ -42,12 +46,22 @@ h1, h2, h3, h4, h5, p {
   text-decoration: none;
 }
 
+.logo {
+  width: 4em;
+}
+
+.logo-wrapper {
+  display: flex;
+  align-items: center;
+}
+
 /* Homepage Styling */
 
 .main-body__login{
   display: flex;
   justify-content: center;
   padding: 5em 5em;
+  height: 100vh;
 }
 
 .main-body__login-content {
@@ -66,6 +80,8 @@ h1, h2, h3, h4, h5, p {
   height: fit-content;
   gap: 1em;
   font-family: 'Montserrat';
+  background-color: white;
+  font: blue;
 }
 
 .form-body {
@@ -99,6 +115,7 @@ h1, h2, h3, h4, h5, p {
 
 .dashboard-heading {
   align-self: flex-start;
+  color: white;
 }
 
 .dashboard-content {
@@ -153,6 +170,7 @@ h1, h2, h3, h4, h5, p {
   display: flex;
   flex-direction: column;
   height: 10em;
+  color: white;
 }
 
 .post-content__wrapper {
@@ -170,6 +188,7 @@ h1, h2, h3, h4, h5, p {
   padding-left: 1em;
   padding-right: 1em;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  background-color: white;
 }
 
 .post-links__wrapper {
@@ -177,4 +196,57 @@ h1, h2, h3, h4, h5, p {
   justify-content: center; 
   width: 100%; 
   gap: 2em;
+  color: white;
+}
+
+/* ViewOnePost Page Styling */
+
+.post-details__content {
+  display: flex;
+  flex-direction: column;
+  gap: 4em;
+  padding-top: 5em;
+  padding-bottom: 5em;
+}
+
+.post-details__top {
+  display: flex;
+  justify-content: center;
+  gap: 3em;
+
+}
+
+.post-details__bottom {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.likes-table {
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+/* DisplayUser Styling */
+.user-content__wrapper {
+  display: flex;
+ justify-content: center;
+  padding-top: 5em;
+  padding-bottom: 5em;
+}
+
+.user-content {
+  display: flex;
+  flex-direction: column;
+  padding: 2em 2em;
+  border: 2px solid lightgray;
+  border-radius: 5px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  gap: 2em;
+  background-color: white;
+}
+
+.user-content__top {
+  padding-bottom: 1em;
+  border-bottom: 2px solid #0A61CB;
+
 }
