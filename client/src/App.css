@@ -87,11 +87,13 @@ h1, h2, h3, h4, h5, p {
 .form-body {
   display: flex;
   flex-direction: column;
+  width: 20em;
   gap: 1em;
 }
 
 .input-wrapper {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   gap: 1em
 }
@@ -138,7 +140,7 @@ h1, h2, h3, h4, h5, p {
 
 .post-form {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 2em;
 }
 
