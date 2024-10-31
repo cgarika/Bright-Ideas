@@ -10,7 +10,7 @@ body {
   justify-content: center; /* Center horizontally */
   align-items: flex-start; /* Align at the top */
   /* min-height: 100vh;  */
-  background-image: url('/Users/antonioelias/Desktop/Bright-Ideas/client/src/assets/light-bulb-bg.webp');
+  background-image: url('./assets/light-bulb-bg.webp');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
